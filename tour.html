@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="resources/fonts/fontAwesome/css/all.css">
+  <link rel="stylesheet" href="resources/css/style.css">
+  <script src="resources/js/jquery-3.6.0.js"></script>
+  <script src="resources/js/script.js"></script>
+  <title>Cheonan Package Tour</title>
+</head>
+<body>
+
+  <!-- 로딩 -->
+  <div class="loading flex jcc aic">
+    <div>
+      <img src="resources/img/loading.gif" alt="#" title="#">
+    </div>
+  </div>
+
+  <!-- 헤더 섹션 -->
+  <header>
+    <div class="wrap flex jcsb aic">
+      <div class="logo_box">
+        <a href="index.html"><img src="resources/img/logo.png" alt="#" title="#" class="logo"></a>
+      </div>
+
+      <div class="menu_nav flex">
+        <a href="sub.html">명소 소개</a>
+        <a href="#">명소 투어</a>
+        <a href="#">명물 구매</a>
+        
+        <div class="animation flex jcsb">
+          <i class="fa fa-plane fa-rotate-180"></i>
+          <i class="fa fa-plane"></i>
+        </div>
+      </div>
+
+      <div class="utility flex jcfe aic">
+
+        <div class="lang_box flex aic">
+          <i class="fa fa-globe"></i>
+          <select class="lang flex">
+            <option value="kor">한국어</option>
+            <option value="eng">English</option>
+            <option value="cn">繁體中文</option>
+            <option value="jp">日本語</option>
+          </select>
+        </div>
+
+        <div class="login_box btn_box">
+          <div class="btn"><i class="fa fa-user"></i>로그인</div>
+          <div class="btn invert"><i class="fa fa-user-plus"></i>회원가입</div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <div class="header_emp"></div>
+
+  <!-- 콘텐츠 영역 -->
+  <div class="content">
+
+    <div class="graph_section">
+      <div class="wrap">
+        <div class="title">
+          <h1>방문자 정보 차트</h1>
+          <div class="line"></div>
+          <p>천안에 방문하신 방문자의 정보를 차트로 모아봤어요</p>
+        </div>
+
+        <div class="graph col-flex">
+          <input type="radio" name="graph" id="hour" hidden checked>
+          <input type="radio" name="graph" id="total" hidden>
+
+          <div class="tab_menu btn_box">
+            <label class="btn" for="hour"><i class="fa fa-clock"></i>시간대별 방문자 차트</label>
+            <label class="btn" for="total"><i class="fa fa-bars"></i>8경별 총 방문자 차트</label>
+          </div>
+
+          <div class="hour col-flex">
+            <div class="location flex jcsb">
+
+            </div>
+
+            <div class="day flex">
+              <div class="chk">월</div>
+              <div>화</div>
+              <div>수</div>
+              <div>목</div>
+              <div>금</div>
+              <div>토</div>
+              <div>일</div>
+            </div>
+
+            <div class="main">
+              <canvas id="bars" width="1200" height="600"></canvas>
+            </div>
+          </div>
+
+          <div class="total flex jcc aic">
+            <div class="main">
+              <canvas id="total_canvas" width="800" height="600"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 푸터 영역 -->
+  <footer>
+    <div class="wrap flex jcsb">
+      <div class="left col-flex">
+        <a href="index.html"><img src="resources/img/logo.png" alt="#" title="#" class="logo"></a>
+        <p>주소 충청남도 천안시 서북구 번영로 156 <br>
+          Copyright ⓒ Cheonan Tours All Rights Reserved</p>
+      </div>
+
+      <div class="right col-flex jcsb aife">
+        <div class="sns_icon flex">
+          <a href="#"><i class="fab fa-square-facebook"></i></a>
+          <a href="#"><i class="fab fa-square-instagram"></i></a>
+          <a href="#"><i class="fab fa-square-twitter"></i></a>
+          <a href="#"><i class="fab fa-square-youtube"></i></a>
+          <a href="#"><i class="fab fa-square-tumblr"></i></a>
+        </div>
+
+        <i class="fa fa-bus"></i>
+      </div>
+    </div>
+  </footer>
+  
+</body>
+</html>

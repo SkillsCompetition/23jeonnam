@@ -61,6 +61,10 @@ a{
   background-color: #ffc83b;
 }
 
+.btn i{
+  padding-top: .1rem;
+}
+
 .btn_box{
   display: inline-flex;
   gap: .5rem;
@@ -916,4 +920,137 @@ footer .fa-bus{
 .special .item:nth-child(2n) .line.middle{
   left: auto;
   right: calc(50% - 10px) !important;
+}
+
+/* 투어 페이지 */
+
+/* 차트 영역 */
+
+.graph{
+  gap: 1rem;
+}
+
+.graph #hour:not(:checked) ~ .tab_menu label:nth-child(1),
+.graph #total:not(:checked) ~ .tab_menu label:nth-child(2){
+  background-color: #e2e2e2;
+  color: gray;
+}
+
+.graph .hour,
+.graph .total{
+  display: none;
+}
+
+.graph #hour:checked ~ .hour,
+.graph #total:checked ~ .total{
+  display: flex;
+}
+
+.graph .hour{
+  gap: 1rem;
+  padding: 40px;
+  box-shadow: 0 0 1rem #0001;
+  border-radius: 5px;
+}
+
+.graph .hour .day{
+  gap: 1rem;
+}
+
+.graph .hour .location div,
+.graph .hour .day div{
+  transition: .2s;
+  cursor: pointer;
+}
+
+.graph .hour .location div.chk,
+.graph .hour .day div.chk{
+  color: #ffb700;
+}
+
+.graph .hour .main{
+  width: 1200px;
+  height: 600px;
+  position: relative;
+}
+
+.graph .hour .main > div{
+  position: absolute;
+  bottom: 25px;
+}
+
+@keyframes bars {
+  from{max-height: 0;}
+  to{max-height: var(--i);}
+}
+
+.graph .hour .main .bar{
+  width: 50px;
+  background-color: #ffb700;
+  animation: bars 1s;
+}
+
+.graph .hour .main .item{
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  padding: 20px;
+  transform: translate(60px);
+  opacity: 0;
+  transition: .2s;
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 5px;
+  z-index: 99;
+  pointer-events: none;
+}
+
+.graph .hour .main .bar:hover + .item{
+  opacity: 1;
+}
+
+.graph .hour canvas{
+  height: 600px;
+}
+
+.graph .total{
+  padding: 40px;
+  box-shadow: 0 0 1rem #0001;
+  border-radius: 5px;
+}
+
+.graph .total .main{
+  width: 800px;
+  height: 600px;
+  position: relative;
+}
+
+.graph .total .main > div{
+  position: absolute;
+  z-index: 99;
+}
+
+.graph .total .main > div .circle{
+  width: 6px;
+  height: 6px;
+  border-radius: 100%;
+}
+
+.graph .total .main .item{
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  padding: 20px;
+  transform: translate(10px, -100%);
+  opacity: 0;
+  transition: .2s;
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 5px;
+  z-index: 99;
+  pointer-events: none;
+}
+
+.graph .total .main .circle:hover + .item{
+  opacity: 1;
 }
