@@ -5,7 +5,12 @@ const App = {
   init(){
     App.hook();
 
-    Graph.init();
+    if(location.pathname.includes("tour")){
+      Graph.init();
+      Tour.init();
+    }
+
+    if(location.pathname.includes("buy")) Buy.init();
   },
 
   hook(){
@@ -13,6 +18,10 @@ const App = {
       .on("click", ".graph .location div", Graph.bars.clickLocation)
       .on("click", ".graph .day div", Graph.bars.clickDay)
       .on("click", ".graph #total", Graph.radial.changeTab)
+      .on("mousedown", ".route .main", Tour.mouse.down)
+      .on("mousemove", ".route .main", Tour.mouse.move)
+      .on("mouseup mouseleave", ".route .main", Tour.mouse.other)
+      .on("input", "#walnut_prograss", Buy.drawWalnut)
   }
 
 }
@@ -302,4 +311,376 @@ const Graph = {
   }
 }
 
+const Tour = {
+  canvas : null,
+  ctx : null,
+  data : [
+    { 
+      id : 2,
+      name : "유관순열사 사적지",
+      x : 570,
+      y : 505
+    },
+    { 
+      id : 1,
+      name : "독립기념관",
+      x : 385,
+      y : 482
+    },
+    { 
+      id : 3,
+      name : "천안 삼거리 공원",
+      x : 280,
+      y : 430
+    },
+    { 
+      id : 4,
+      name : "태조산 왕건길과 청동대좌불",
+      x : 355,
+      y : 331
+    },
+    { 
+      id : 5,
+      name : "아라리오 조각광장",
+      x : 275,
+      y : 331
+    },
+    { 
+      id : 6,
+      name : "성성호수공원",
+      x : 260,
+      y : 264
+    },
+    { 
+      id : 7,
+      name : "광덕산",
+      x : 68,
+      y : 658
+    },
+    { 
+      id : 8,
+      name : "국보 봉선 홍경사 갈기비",
+      x : 230,
+      y : 68
+    },
+  ],
+  route : [],
+
+  init(){
+    Tour.canvas = $("canvas#tour")[0];
+    Tour.ctx = Tour.canvas.getContext("2d");
+
+    Tour.background = new Image();
+    Tour.background.src = "/resources/img/map.png";
+
+    Tour.background.onload = () => {
+      Tour.settingMarker();
+
+      Tour.drawBackground();
+      Tour.drawDot();
+    }
+  },
+
+  settingMarker(){
+    $(".route .marker_box").append(Tour.data.map((v, i) => {
+      const style = `left: ${v.x/800 * 100}%; top: ${v.y/850 * 100}%;`
+      return `
+        <div class="marker" style="${style}">
+          <div class="point point_id${v.id}"></div>
+          <div class="item flex">
+            <img src="/resources/img/special/${i + 1}.jpg" alt="">
+            <h2>${v.name}</h2>
+          </div>
+        </div>`
+    }))    
+  },
+
+  mouse : {
+    allowMove : false,
+
+    down(e){
+      const { left, top } = $(".route .main").offset();
+
+      const x = e.pageX - left
+      const y = e.pageY - top
+
+      const chk = Tour.chkMarker(x, y);
+      if(!chk) return;
+
+      const last = [...Tour.route].pop();
+      if(last?.id == chk.id){
+        Tour.mouse.allowMove = true;
+      }else if(!last){
+        Tour.mouse.allowMove = true;
+
+        Tour.route.push({
+          id : chk.id,
+          complete : false,
+          pos : [chk.x, chk.y]
+        });
+      }else{
+        alert("마지막으로 선택한 경로부터 시작해주세요.");
+      }
+    },
+
+    move(e){
+      if(!Tour.mouse.allowMove) return;
+
+      const { left, top } = $(".route .main").offset();
+
+      const x = e.pageX - left
+      const y = e.pageY - top
+
+      Tour.reDraw([{
+        pos : [x, y]
+      }])
+    },
+
+    other(e){
+      if(!Tour.mouse.allowMove) return;
+      Tour.mouse.allowMove = false;
+
+      const { left, top } = $(".route .main").offset();
+
+      const x = e.pageX - left
+      const y = e.pageY - top
+
+      const chk = Tour.chkMarker(x, y);
+      const crash = Tour.route.find(v => v.id == chk?.id);
+      if(crash) alert("이미 설정된 경로입니다.");
+      if(!crash && chk) Tour.route.push({
+        id : chk.id,
+        complete : false,
+        pos : [chk.x, chk.y]
+      });
+
+      if(Tour.route.length == 1) Tour.route = [];
+
+      Tour.reDraw()
+    }
+  },
+
+  drawDot(){
+    const ctx = Tour.ctx;
+
+    ctx.fillStyle = "#ffb700";
+
+    ctx.beginPath();
+    Tour.data.forEach((v) => {
+      ctx.moveTo(v.x, v.y)
+      ctx.arc(v.x, v.y, 15, 0, Math.PI * 2)
+    });
+    ctx.closePath();
+    ctx.fill();
+  },
+
+  drawLine(nowPos = []){
+    const ctx = Tour.ctx;
+
+    ctx.strokeStyle = "#000";
+    ctx.lineWidth = 5
+    
+    ctx.beginPath();
+    [...Tour.route, ...nowPos].forEach((v, i) => {
+      if(i == 0) ctx.moveTo(...v.pos);
+      else ctx.lineTo(...v.pos);
+    });
+    ctx.stroke();
+    ctx.closePath();
+  },
+
+  drawNumber(){
+    if(Tour.route.length < 2) return;
+    const ctx = Tour.ctx;
+
+    ctx.fillStyle = "#222";
+    ctx.font = "bold 16px sans"
+    ctx.textAlign = "center";
+
+    Tour.route.forEach((v, i) => {
+      ctx.fillText(i + 1, v.pos[0], v.pos[1] + 6);
+    })
+  },
+
+  drawBackground(){
+    const ctx = Tour.ctx;
+
+    ctx.clearRect(0, 0, 800, 850)
+    ctx.drawImage(Tour.background, 0, 0)
+  },
+
+  reDraw(obj){
+    Tour.drawBackground();
+    Tour.drawLine(obj);
+    Tour.drawDot();
+    Tour.drawNumber();
+  },
+
+  chkMarker(x, y){
+    return Tour.data.find(v => {
+      return Math.abs(v.x - x) <= 20 && Math.abs(v.y - y) <= 20
+    })
+  },
+
+  undo(){
+    if(Tour.route.length < 2) return alert("경로를 한개 이상 선택해주세요.");
+    Tour.route.pop();
+
+    if(Tour.route.length == 1) {
+      Tour.route = [];
+    }
+
+    Tour.reDraw();
+  },
+
+  reset(){
+    if(Tour.route.length < 2) return alert("경로를 한개 이상 선택해주세요.");
+    Tour.route = [];
+
+    Tour.reDraw();
+  },
+
+  download(){
+    if(Tour.route.length < 2) return alert("경로를 한개 이상 선택해주세요.");
+    const data = Tour.canvas.toDataURL();
+
+    const a = document.createElement("a");
+
+    a.href = data;
+    a.download = "route.png";
+
+    a.click();
+    a.remove();
+  },
+
+}
+
+const Buy = {
+  data : [],
+
+  async init(){
+    await Buy.loadData();
+
+    Buy.settingContainer();
+  },
+
+  open(i){
+    const data = Buy.data[i];
+
+    Modal.open("buy");
+    $(".buy_modal .modal_title").html(data.name);
+    $(".buy_modal .description").html(data.description);
+    $(".buy_modal .point").html(`포인트 개당 ${data.point}포인트`);
+
+    if(data.name === "호두과자"){
+      $(".buy_modal .walnut").show();
+       
+      Buy.drawWalnut({});
+    }
+  },
+
+  drawWalnut(e){
+    const w = h = 100
+    const percent = e.target?.value || 152;
+    const img = $(".walnut_img")[0];
+    const canvas = $("#walnut")[0];
+    const ctx = canvas.getContext("2d");
+    const imgData = new ImageData(w, h);
+
+    ctx.clearRect(0, 0, 300, 300)
+    ctx.drawImage(img, percent, 0, 228, 228, 0, 0, w, h);
+
+    const refIdx = .6;
+    const radius = (w/2)**2;
+
+    const centerX = centerY = w/2; 
+
+    let origX = origY = 0;
+    let i = 0
+
+    for (let x = 0; x < w;x++){
+      for (let y = 0; y < h;y++){
+        const distX = x - centerX;
+        const distY = y - centerY;
+  
+        const r2 = distX**2 + distY**2;
+  
+        origX = x;
+        origY = y;
+  
+        if(r2 > 0.0 && r2 < radius) {
+            const z2 = radius - r2;
+            const z = Math.sqrt(z2);
+  
+            const xb = Math.asin(distX / Math.sqrt( distX**2 + z2 ));
+            const yb = Math.asin(distY / Math.sqrt( distY**2 + z2 ));
+  
+            origX = origX - z * Math.tan(xb * (1 - refIdx));
+            origY = origY - z * Math.tan(yb * (1 - refIdx));
+        }
+    
+        const data = ctx.getImageData(origX, origY, 1, 1);
+
+        imgData.data[i] = data.data[0];
+        imgData.data[i + 1] = data.data[1];
+        imgData.data[i + 2] = data.data[2];
+        imgData.data[i + 3] = data.data[3];
+
+        i += 4;
+      }
+      if(x == 99) {
+        dd(imgData);
+        ctx.putImageData(imgData, w, h)
+      };
+    }
+
+  },
+
+  settingContainer(){
+    $(".buyitem").html(Buy.data.map((v, i) => {
+      return `
+        <div class="item">
+          <img src="/resources/img/item/${v.image}" alt="">
+          <div class="box flex jcc aic">
+            <div class="btn" onclick="Buy.open(${i})">장바구니 담기</div>
+          </div>
+        </div>`
+    }))
+  },
+
+  loadData(){
+    return new Promise(res => {
+      $.getJSON("/resources/json/specialties.json")
+        .then(data => {
+          Buy.data = data.data;
+
+          res();
+        })
+    })
+  }
+}
+
+const Modal = {
+  template : (t) => $($("template")[0].content).find(`.${t}_modal`).clone(),
+
+  open(t){
+    $("body").css("overflow", "hidden");
+
+    $(".modal")
+      .addClass("open")
+      .html(Modal.template(t))
+  },
+
+  close(){
+    $("body").css("overflow", "");
+
+    $(".modal")
+      .removeClass("open")
+      .html("")
+  }
+}
+
 $(() => App.init())
+  
+    
+  

@@ -1054,3 +1054,250 @@ footer .fa-bus{
 .graph .total .main .circle:hover + .item{
   opacity: 1;
 }
+
+/* 투어 경로 */
+
+.route{
+  gap: 1rem;
+}
+
+.route .tour_area{
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #e2e2e2;
+}
+
+.route .tour_area .main{
+  width: 800px;
+  height: 850px;
+  position: relative;
+  z-index: 10;
+}
+
+.route .tour_area canvas{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -2;
+}
+
+.route .tour_area .back_img{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -5;
+  pointer-events: none;
+  user-select: none;
+}
+
+.route .tour_area .marker{
+  position: absolute;
+  z-index: -1;
+  transform: translate(-15px, -15px);
+}
+
+.route .tour_area .point{
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  user-select: none;
+}
+
+.route .tour_area .marker .item{
+  position: absolute;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #000;
+  display: flex;
+  gap: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+  transition: .2s;
+  transform: translate(50px, -30px);
+}
+
+.route .tour_area .marker:hover .item{
+  opacity: 1;
+}
+
+.route .tour_area .marker .item h2{
+  white-space: nowrap;
+}
+
+.route .tour_area .marker .item img{
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+}
+
+.route .util_menu{
+  width: 100%;
+  gap: 1rem;
+}
+
+.route .util_menu .btn{
+  width: 100%;
+}
+
+.route .util_menu .btn:nth-child(1){
+  outline: 1px solid #ffb700;
+  background-color: #fff;
+  color: #ffb700;
+}
+
+.route .util_menu .btn:nth-child(2){
+  background-color: tomato;
+  color: #fff;
+}
+
+.route .util_menu .btn:nth-child(3){
+  background-color: yellowgreen;
+  color: #fff;
+}
+
+.buyitem{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.buyitem .item{
+  height: 300px;
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.buyitem .item .box{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: #0005;
+  opacity: 0;
+  transition: .2s;
+}
+
+.buyitem .item:hover .box{
+  opacity: 1;
+}
+
+.modal{
+  width: 100%;
+  height: 100%;
+  background-color: #0003;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
+
+.modal.open{
+  display: flex;
+}
+
+.modal > div{
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.modal .main{
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  padding: 20px;
+}
+
+.modal .btn_box.submit{
+  gap: 0;
+}
+
+.modal .btn_box.submit .btn{
+  width: 100%;
+  border-radius: 0;
+  padding: 1rem 0;
+}
+
+.buy_modal{
+  width: 500px;
+}
+
+hr{
+  border: none;
+  border-top: 1px solid #d1d1d1;
+}
+
+.inputs{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.input_box{
+  display: flex;
+  align-items: center;
+  height: 40px;
+  background-color: #ffb7002f;
+  padding: 0 20px;
+}
+
+.input_box label{
+  white-space: nowrap;
+  margin-right: 20px;
+  padding-right: 20px;
+  border-right: 1px solid #d1d1d1;
+  color: gray;
+}
+
+.input_box input{
+  width: 100%;
+  height: 40px;
+  border: none;
+  background-color: transparent;
+}
+
+.input_box input:focus{
+  outline: none;
+}
+
+.walnut{
+  gap: 1rem;
+  padding-top: 16px;
+  border-top: 1px solid #d1d1d1;
+}
+
+.walnut input{
+  width: 100%;
+}
+
+.walnut .area{
+  width: 100px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 100%;
+  z-index: 10;
+}
+
+.walnut .area canvas{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+}
+
+.walnut .area .shadow{
+  width: 100%;
+  height: 100%;
+  box-shadow: inset -25px -25px 40px #0005;
+}
