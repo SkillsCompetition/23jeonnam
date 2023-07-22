@@ -1,0 +1,5 @@
+ReWriteEngine on
+ReWriteCond %{REQUEST_FILENAME} !-f
+ReWriteCond %{REQUEST_FILENAME} !-d
+ReWriteCond %{REQUEST_FILENAME} !-l
+ReWriteRule .* index.php?url=$0 [L,QSA]
