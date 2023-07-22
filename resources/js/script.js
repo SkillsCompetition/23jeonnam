@@ -581,7 +581,7 @@ const Buy = {
 
   drawWalnut(e){
     const w = h = 100
-    const percent = e.target?.value || 152;
+    const percent = 304 * (e.target?.value/100 ||.5);
     const img = $(".walnut_img")[0];
     const canvas = $("#walnut")[0];
     const ctx = canvas.getContext("2d");
@@ -590,23 +590,20 @@ const Buy = {
     ctx.clearRect(0, 0, 300, 300)
     ctx.drawImage(img, percent, 0, 228, 228, 0, 0, w, h);
 
-    const refIdx = .6;
+    const refIdx = .5;
     const radius = (w/2)**2;
 
-    const centerX = centerY = w/2; 
-
-    let origX = origY = 0;
-    let i = 0
+    const center = w/2; 
 
     for (let x = 0; x < w;x++){
       for (let y = 0; y < h;y++){
-        const distX = x - centerX;
-        const distY = y - centerY;
+        const distX = x - center;
+        const distY = y - center;
   
         const r2 = distX**2 + distY**2;
   
-        origX = x;
-        origY = y;
+        let origX = x;
+        let origY = y;
   
         if(r2 > 0.0 && r2 < radius) {
             const z2 = radius - r2;
@@ -621,16 +618,14 @@ const Buy = {
     
         const data = ctx.getImageData(origX, origY, 1, 1);
 
-        imgData.data[i] = data.data[0];
-        imgData.data[i + 1] = data.data[1];
-        imgData.data[i + 2] = data.data[2];
-        imgData.data[i + 3] = data.data[3];
-
-        i += 4;
+        const start = (y * 400) + (x * 4);
+        imgData.data[start] = data.data[0];
+        imgData.data[start + 1] = data.data[1];
+        imgData.data[start + 2] = data.data[2];
+        imgData.data[start + 3] = data.data[3];
       }
       if(x == 99) {
-        dd(imgData);
-        ctx.putImageData(imgData, w, h)
+        ctx.putImageData(imgData, w, h);
       };
     }
 
