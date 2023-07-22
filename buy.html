@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="resources/fonts/fontAwesome/css/all.css">
+  <link rel="stylesheet" href="resources/css/style.css">
+  <script src="resources/js/jquery-3.6.0.js"></script>
+  <script src="resources/js/script.js"></script>
+  <title>Cheonan Package Tour</title>
+</head>
+<body>
+
+  <!-- 로딩 -->
+  <div class="loading flex jcc aic">
+    <div>
+      <img src="resources/img/loading.gif" alt="#" title="#">
+    </div>
+  </div>
+
+  <!-- 헤더 섹션 -->
+  <header>
+    <div class="wrap flex jcsb aic">
+      <div class="logo_box">
+        <a href="index.html"><img src="resources/img/logo.png" alt="#" title="#" class="logo"></a>
+      </div>
+
+      <div class="menu_nav flex">
+        <a href="sub.html">명소 소개</a>
+        <a href="tour.html">명소 투어</a>
+        <a href="buy.html">명물 구매</a>
+        
+        <div class="animation flex jcsb">
+          <i class="fa fa-plane fa-rotate-180"></i>
+          <i class="fa fa-plane"></i>
+        </div>
+      </div>
+
+      <div class="utility flex jcfe aic">
+
+        <div class="lang_box flex aic">
+          <i class="fa fa-globe"></i>
+          <select class="lang flex">
+            <option value="kor">한국어</option>
+            <option value="eng">English</option>
+            <option value="cn">繁體中文</option>
+            <option value="jp">日本語</option>
+          </select>
+        </div>
+
+        <div class="login_box btn_box">
+          <div class="btn"><i class="fa fa-user"></i>로그인</div>
+          <div class="btn invert"><i class="fa fa-user-plus"></i>회원가입</div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <div class="header_emp"></div>
+
+  <!-- 콘텐츠 영역 -->
+  <div class="content">
+
+    <div class="buyitem_section">
+      <div class="wrap">
+        <div class="title">
+          <h1>명물 구매</h1>
+          <div class="line"></div>
+          <p>천안의 명물을 구매해주세요</p>
+        </div>
+
+        <div class="buyitem">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="modal"></div>
+
+  <template>
+
+    <div class="buy_modal">
+      <div class="main">
+        <div class="flex aic">
+          <h2 class="modal_title">모달</h2>
+        </div>
+        <hr>
+        <div class="inputs">
+          <p class="description"></p>
+          <hr>
+          <div class="col-flex" style="gap: .5rem; color: #ffb700;">
+            <small class="point"></small>
+            <div class="input_box">
+              <label for="count">갯수</label>
+              <input type="text" id="count">
+            </div>
+          </div>
+          <div class="walnut col-flex jcc aic" style="display: none;">
+            <div class="area">
+              <canvas id="walnut" width="200" height="200"></canvas>
+              <div class="shadow"></div>
+            </div>
+
+            <input type="range" name="walnut_prograss" id="walnut_prograss" max="100">
+          </div>
+        </div>
+      </div>
+      <div class="btn_box submit">
+        <div class="btn">구매</div>
+        <div class="btn" onclick="Modal.close()">닫기</div>
+      </div>
+    </div>
+
+  </template>
+  <img class="walnut_img" src="resources/img/walnut-flat.png" alt="#" hidden>
+
+  <!-- 푸터 영역 -->
+  <footer>
+    <div class="wrap flex jcsb">
+      <div class="left col-flex">
+        <a href="index.html"><img src="resources/img/logo.png" alt="#" title="#" class="logo"></a>
+        <p>주소 충청남도 천안시 서북구 번영로 156 <br>
+          Copyright ⓒ Cheonan Tours All Rights Reserved</p>
+      </div>
+
+      <div class="right col-flex jcsb aife">
+        <div class="sns_icon flex">
+          <a href="#"><i class="fab fa-square-facebook"></i></a>
+          <a href="#"><i class="fab fa-square-instagram"></i></a>
+          <a href="#"><i class="fab fa-square-twitter"></i></a>
+          <a href="#"><i class="fab fa-square-youtube"></i></a>
+          <a href="#"><i class="fab fa-square-tumblr"></i></a>
+        </div>
+
+        <i class="fa fa-bus"></i>
+      </div>
+    </div>
+  </footer>
+  
+</body>
+</html>
