@@ -20,7 +20,7 @@
     }
 
     foreach(debug_backtrace() as $v){
-      $v["function"] == "middleware" && $v["args"][0];
+      $v["function"] == "middleware" && $v["args"][0]();
     }
 
     $fn(...array_slice(array_merge(...$param), -count($param) + 1));

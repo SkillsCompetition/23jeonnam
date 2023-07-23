@@ -51,7 +51,7 @@
       self::mq("UPDATE $table SET $update_sql WHERE $sql", array_values($data));
     }
 
-    public static function update($sql, $arr = []){
+    public static function delete($sql, $arr = []){
       $table = get_called_class();
       self::mq("DELETE FROM $table WHERE $sql", $arr);
     }
@@ -59,4 +59,6 @@
 
   class user extends DB {}
   class point extends DB {}
+  class specialties extends DB {}
+  class tour extends DB {}
 ?>

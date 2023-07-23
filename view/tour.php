@@ -69,10 +69,37 @@
             <div class="btn" onclick="Tour.undo()"><i class="fa fa-undo"></i>되돌리기</div>
             <div class="btn" onclick="Tour.reset()"><i class="fa fa-trash"></i>초기화</div>
             <div class="btn" onclick="Tour.download()"><i class="fa fa-download"></i>다운로드</div>
-            <div class="btn"><i class="fa fa-hand"></i>가이드 선택</div>
+            <div class="btn" onclick="Tour.openGuideList()"><i class="fa fa-hand"></i>가이드 선택</div>
           </div>
         </div>
       </div>
     </div>
 
   </div>
+
+<template>
+
+    <div class="selguide_modal">
+      <div class="main">
+        <div class="flex aic">
+          <h2 class="modal_title">가이드 선택</h2>
+        </div>
+        <hr>
+        <div class="table">
+          <div>
+            <p>가이드 이름</p>
+            <p>평균 별점</p>
+          </div>
+        </div>
+
+        <form action="/tour" method="POST" class="application">
+          <input type="text" id="guide_idx" name="guide_idx" hidden>
+        </form>
+      </div>
+      <div class="btn_box submit">
+        <div class="btn" onclick="Tour.application()">신청</div>
+        <div class="btn" onclick="Modal.close()">닫기</div>
+      </div>
+    </div>
+
+</template>

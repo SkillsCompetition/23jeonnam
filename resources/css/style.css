@@ -55,6 +55,7 @@ a{
   font-size: 14px;
   gap: .5rem;
   transition: .2s;
+  border: none;
 }
 
 .btn:hover{
@@ -1249,6 +1250,7 @@ hr{
   height: 40px;
   background-color: #ffb7002f;
   padding: 0 20px;
+  border-radius: 5px;
 }
 
 .input_box label{
@@ -1264,6 +1266,8 @@ hr{
   height: 40px;
   border: none;
   background-color: transparent;
+  font-size: 16px;
+  text-decoration: initial;
 }
 
 .input_box input:focus{
@@ -1300,4 +1304,60 @@ hr{
   width: 100%;
   height: 100%;
   box-shadow: inset -25px -25px 40px #0005;
+}
+
+.join_section .wrap,
+.login_section .wrap{
+  max-width: 400px;
+}
+
+.join label,
+.login label{
+  min-width: 76px;
+}
+
+.table{
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.table > div{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border-radius: 5px;
+  box-shadow: 0 0 .5rem #0001;
+}
+
+.table > div > *{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.table > div:first-child{
+  color: #222;
+  background-color: #ffb700;
+}
+
+.table > div:first-child *{
+  color: #222;
+  font-weight: bold;
+}
+
+.table > div .btn{
+  padding: .4rem 1.1rem;
+}
+
+.selGuide *{
+  pointer-events: none;
+}
+
+.selGuide.sel{
+  border: 2px solid #ffb700;
 }

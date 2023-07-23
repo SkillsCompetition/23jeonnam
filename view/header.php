@@ -19,6 +19,14 @@
     </div>
   </div>
 
+  <?php
+    $type = [
+      "user" => "일반 회원",
+      "guide" => "가이드",
+      "admin" => "관리자"
+    ]
+  ?>
+
   <!-- 헤더 섹션 -->
   <header>
     <div class="wrap flex jcsb aic">
@@ -27,9 +35,9 @@
       </div>
 
       <div class="menu_nav flex">
-        <a href="sub.html">명소 소개</a>
-        <a href="tour.html">명소 투어</a>
-        <a href="buy.html">명물 구매</a>
+        <a href="/sub">명소 소개</a>
+        <a href="/tour">명소 투어</a>
+        <a href="/buy">명물 구매</a>
         
         <div class="animation flex jcsb">
           <i class="fa fa-plane fa-rotate-180"></i>
@@ -49,9 +57,14 @@
           </select>
         </div>
 
-        <div class="login_box btn_box">
-          <div class="btn"><i class="fa fa-user"></i>로그인</div>
-          <div class="btn invert"><i class="fa fa-user-plus"></i>회원가입</div>
+        <div class="login_box btn_box aic">
+          <?php if(@USER):?>
+            <a href="/mypage"><?= USER["username"] ?>(<?= $type[USER["type"]] ?>)</a>
+            <a href="/login" class="btn"><i class="fa fa-user-times"></i>로그아웃</a>
+          <?php else: ?>
+            <a href="/login" class="btn"><i class="fa fa-user"></i>로그인</a>
+            <a href="/join" class="btn invert"><i class="fa fa-user-plus"></i>회원가입</a>
+          <?php endif ?>
         </div>
 
       </div>

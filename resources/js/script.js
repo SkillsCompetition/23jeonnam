@@ -21,6 +21,7 @@ const App = {
       .on("mousedown", ".route .main", Tour.mouse.down)
       .on("mousemove", ".route .main", Tour.mouse.move)
       .on("mouseup mouseleave", ".route .main", Tour.mouse.other)
+      .on("click", ".modal .selGuide", Tour.selectGuide)
       .on("input", "#walnut_prograss", Buy.drawWalnut)
   }
 
@@ -364,6 +365,7 @@ const Tour = {
       y : 68
     },
   ],
+  complete : 0,
   route : [],
 
   init(){
@@ -463,30 +465,32 @@ const Tour = {
   drawDot(){
     const ctx = Tour.ctx;
 
-    ctx.fillStyle = "#ffb700";
-
-    ctx.beginPath();
     Tour.data.forEach((v) => {
-      ctx.moveTo(v.x, v.y)
-      ctx.arc(v.x, v.y, 15, 0, Math.PI * 2)
+      let idx = Tour.route.findIndex(find => find.id == v.id);
+      idx = idx == -1 ? Infinity : idx + 1;
+
+      ctx.fillStyle = idx <= Tour.complete ? "green" :  "#ffb700";
+      ctx.beginPath();
+        ctx.moveTo(v.x, v.y)
+        ctx.arc(v.x, v.y, 15, 0, Math.PI * 2)
+      ctx.closePath();
+      ctx.fill();
     });
-    ctx.closePath();
-    ctx.fill();
   },
 
   drawLine(nowPos = []){
     const ctx = Tour.ctx;
 
-    ctx.strokeStyle = "#000";
-    ctx.lineWidth = 5
-    
-    ctx.beginPath();
-    [...Tour.route, ...nowPos].forEach((v, i) => {
-      if(i == 0) ctx.moveTo(...v.pos);
-      else ctx.lineTo(...v.pos);
-    });
-    ctx.stroke();
-    ctx.closePath();
+    ctx.lineWidth = 5;
+
+    [...Tour.route, ...nowPos].forEach((v, i, arr) => {
+      ctx.strokeStyle = i <= Tour.complete - 2 ? "green" : "#000";
+      ctx.beginPath();
+        ctx.moveTo(...v.pos);
+        if(arr[i + 1]) ctx.lineTo(...arr[i + 1].pos);
+      ctx.closePath();
+      ctx.stroke();
+    }); 
   },
 
   drawNumber(){
@@ -552,6 +556,39 @@ const Tour = {
     a.click();
     a.remove();
   },
+
+  openGuideList(){
+    $.getJSON("/guide_list")
+      .done(res => {
+        const len = Tour.route.length;
+        Modal.open("selguide");
+
+        $(".modal .table").append(res.map(v => {
+          return `
+            <div class="selGuide" data-idx="${v.idx}">
+              <p>${v.username}</p>
+              <p>${Number(v.score_avg).toFixed(1)}점</p>
+            </div>`
+        }))
+      })
+  },
+
+  selectGuide(e){
+    const idx = $(e.target).attr("data-idx") * 1;
+    $(".application #guide_idx").val(idx);
+
+    $(".selGuide.sel").removeClass("sel")
+    $(e.target).addClass("sel")
+  },
+
+  application(){
+    if(Tour.route.length != 8) return alert("경로를 설정을 완료해주세요.");
+
+    const guide_idx = $(".application #guide_idx").val();
+    if(!guide_idx) return alert("가이드를 선택해주세요.");
+
+    $(".application")[0].submit();
+  }
 
 }
 
@@ -635,7 +672,7 @@ const Buy = {
     $(".buyitem").html(Buy.data.map((v, i) => {
       return `
         <div class="item">
-          <img src="/resources/img/item/${v.image}" alt="">
+          <img src="${v.image}" alt="">
           <div class="box flex jcc aic">
             <div class="btn" onclick="Buy.open(${i})">장바구니 담기</div>
           </div>
@@ -645,9 +682,9 @@ const Buy = {
 
   loadData(){
     return new Promise(res => {
-      $.getJSON("/resources/json/specialties.json")
+      $.getJSON("/buy_list")
         .then(data => {
-          Buy.data = data.data;
+          Buy.data = data;
 
           res();
         })

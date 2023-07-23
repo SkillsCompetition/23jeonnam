@@ -11,7 +11,7 @@
 
   function move($msg = false, $url = "back"){
     $msg = is_array($url) ? implode("\\n", $msg) : $msg;
-    $url = $url == "back" ? "history.back()" : "location.href=$url";
+    $url = $url == "back" ? "history.back()" : "location.href='$url'";
 
     if($msg){
       echo "<script>alert('$msg')</script>";
