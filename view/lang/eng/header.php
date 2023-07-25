@@ -14,7 +14,7 @@
 
   <?php if(@USER["type"] == "user"): ?>
     <div class="alert flex aifs">
-      <div class="btn" onclick="openAlert()"><i class="fa fa-bell"></i>알림</div>
+      <div class="btn" onclick="openAlert()"><i class="fa fa-bell"></i>alarm</div>
       <div class="container col-flex">
 
       </div>
@@ -47,9 +47,9 @@
       </div>
 
       <div class="menu_nav flex">
-        <a href="/sub">명소 소개</a>
-        <a href="/tour">명소 투어</a>
-        <a href="/buy">명물 구매</a>
+        <a href="/sub">attractions</a>
+        <a href="/tour">attraction tour</a>
+        <a href="/buy">specialty purchase</a>
         
         <div class="animation flex jcsb">
           <i class="fa fa-plane fa-rotate-180"></i>
@@ -61,9 +61,9 @@
 
         <div class="lang_box flex aic">
           <i class="fa fa-globe"></i>
-          <select class="lang flex">
+          <select class="lang flex" onchange="changeLang(this)">
             <option value="kor">한국어</option>
-            <option value="eng">English</option>
+            <option value="eng" selected>English</option>
             <option value="cn">繁體中文</option>
             <option value="jp">日本語</option>
           </select>
@@ -74,8 +74,8 @@
             <a href="/mypage"><?= USER["username"] ?>(<?= $type[USER["type"]] ?>)</a>
             <a href="/logout" class="btn"><i class="fa fa-user-times"></i>로그아웃</a>
           <?php else: ?>
-            <a href="/login" class="btn"><i class="fa fa-user"></i>로그인</a>
-            <a href="/join" class="btn invert"><i class="fa fa-user-plus"></i>회원가입</a>
+            <a href="/login" class="btn"><i class="fa fa-user"></i>sign in</a>
+            <a href="/join" class="btn invert"><i class="fa fa-user-plus"></i>sign up</a>
           <?php endif ?>
         </div>
 
@@ -124,5 +124,17 @@
     }, 1000);
 
     settingAlert();
+
+    function changeLang(target){
+      const value = $(target).val();
+
+      $.ajax({
+        url : `/change_lang/${value}`,
+        method : "get",
+        cache : false
+      }).done(() => {
+        location.reload();
+      });
+    }
 
   </script>

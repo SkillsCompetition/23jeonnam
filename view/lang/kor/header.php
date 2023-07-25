@@ -61,8 +61,8 @@
 
         <div class="lang_box flex aic">
           <i class="fa fa-globe"></i>
-          <select class="lang flex">
-            <option value="kor">한국어</option>
+          <select class="lang flex" onchange="changeLang(this)">
+            <option value="kor" selected>한국어</option>
             <option value="eng">English</option>
             <option value="cn">繁體中文</option>
             <option value="jp">日本語</option>
@@ -124,5 +124,18 @@
     }, 1000);
 
     settingAlert();
+
+    function changeLang(target){
+      const value = $(target).val();
+
+      $.ajax({
+        url : `/change_lang/${value}`,
+        method : "get",
+        cache : false
+      }).done(() => {
+        location.reload();
+      });
+    }
+
 
   </script>

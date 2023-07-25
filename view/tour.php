@@ -94,6 +94,7 @@
 
         <form action="/tour" method="POST" class="application">
           <input type="text" id="guide_idx" name="guide_idx" hidden>
+          <input type="text" id="route" name="route" hidden>
         </form>
       </div>
       <div class="btn_box submit">

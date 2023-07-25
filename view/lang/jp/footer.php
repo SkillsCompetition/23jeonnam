@@ -5,7 +5,7 @@
     <div class="wrap flex jcsb">
       <div class="left col-flex">
         <a href="/"><img src="/resources/img/logo.png" alt="#" title="#" class="logo"></a>
-        <p>주소 충청남도 천안시 서북구 번영로 156 <br>
+        <p>住所 忠清南道天安市西北区繁栄路156<br>
           Copyright ⓒ Cheonan Tours All Rights Reserved</p>
       </div>
 

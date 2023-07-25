@@ -20,7 +20,7 @@
 
   <template>
 
-    <div class="buy_modal">
+    <form class="buy_modal" method="POST" action="/basket_in">
       <div class="main">
         <div class="flex aic">
           <h2 class="modal_title">모달</h2>
@@ -30,10 +30,11 @@
           <p class="description"></p>
           <hr>
           <div class="col-flex" style="gap: .5rem; color: #ffb700;">
+            <input type="text" name="specialties_idx" id="idx" hidden>
             <small class="point"></small>
             <div class="input_box">
               <label for="count">갯수</label>
-              <input type="text" id="count">
+              <input type="number" id="count" name="count" oninput="number(this)" required>
             </div>
           </div>
           <div class="walnut col-flex jcc aic" style="display: none;">
@@ -47,10 +48,19 @@
         </div>
       </div>
       <div class="btn_box submit">
-        <div class="btn">구매</div>
+        <button class="btn">구매</button>
         <div class="btn" onclick="Modal.close()">닫기</div>
       </div>
-    </div>
+    </form>
 
   </template>
   <img class="walnut_img" src="resources/img/walnut-flat.png" alt="#" hidden>
+
+  <script>
+
+    function number(target){
+      const value = target.value.replaceAll(/\D/g, "");
+      target.value = target.value < 1 ? 1 : target.value;
+    }
+
+  </script>

@@ -46,7 +46,7 @@
       
       $update_sql = implode(" = ?,", array_keys($data))." = ?";
 
-      array_merge($data, $condition);
+      $data = array_merge($data, $condition);
 
       self::mq("UPDATE $table SET $update_sql WHERE $sql", array_values($data));
     }
@@ -58,7 +58,21 @@
   }
 
   class user extends DB {}
-  class point extends DB {}
+  class point extends DB {
+
+    public static function getPoint($user_idx){
+      $point = self::mq("SELECT SUM(point) AS point 
+                         FROM point 
+                         WHERE user_idx = ? 
+                         GROUP BY user_idx", $user_idx)->fetch();
+                    
+      return !$point ? 0 : $point["point"];
+    }
+
+  }
   class specialties extends DB {}
   class tour extends DB {}
+  class review extends DB {}
+  class buy extends DB {}
+  class alert extends DB {}
 ?>

@@ -8,6 +8,7 @@ const App = {
     if(location.pathname.includes("tour")){
       Graph.init();
       Tour.init();
+      Tour.hook();
     }
 
     if(location.pathname.includes("buy")) Buy.init();
@@ -18,9 +19,6 @@ const App = {
       .on("click", ".graph .location div", Graph.bars.clickLocation)
       .on("click", ".graph .day div", Graph.bars.clickDay)
       .on("click", ".graph #total", Graph.radial.changeTab)
-      .on("mousedown", ".route .main", Tour.mouse.down)
-      .on("mousemove", ".route .main", Tour.mouse.move)
-      .on("mouseup mouseleave", ".route .main", Tour.mouse.other)
       .on("click", ".modal .selGuide", Tour.selectGuide)
       .on("input", "#walnut_prograss", Buy.drawWalnut)
   }
@@ -368,7 +366,7 @@ const Tour = {
   complete : 0,
   route : [],
 
-  init(){
+  init(){    
     Tour.canvas = $("canvas#tour")[0];
     Tour.ctx = Tour.canvas.getContext("2d");
 
@@ -381,6 +379,13 @@ const Tour = {
       Tour.drawBackground();
       Tour.drawDot();
     }
+  },
+
+  hook(){
+    $(document)
+      .on("mousedown", ".route .main", Tour.mouse.down)
+      .on("mousemove", ".route .main", Tour.mouse.move)
+      .on("mouseup mouseleave", ".route .main", Tour.mouse.other)
   },
 
   settingMarker(){
@@ -583,6 +588,7 @@ const Tour = {
 
   application(){
     if(Tour.route.length != 8) return alert("경로를 설정을 완료해주세요.");
+    $(".application #route").val(JSON.stringify(Tour.route));
 
     const guide_idx = $(".application #guide_idx").val();
     if(!guide_idx) return alert("가이드를 선택해주세요.");
@@ -602,18 +608,26 @@ const Buy = {
   },
 
   open(i){
-    const data = Buy.data[i];
-
-    Modal.open("buy");
-    $(".buy_modal .modal_title").html(data.name);
-    $(".buy_modal .description").html(data.description);
-    $(".buy_modal .point").html(`포인트 개당 ${data.point}포인트`);
-
-    if(data.name === "호두과자"){
-      $(".buy_modal .walnut").show();
-       
-      Buy.drawWalnut({});
-    }
+    $.get("/chkAllow_basket")
+      .done(() => {
+        const data = Buy.data[i];
+    
+        Modal.open("buy");
+        $(".buy_modal #idx").val(data.idx);
+        $(".buy_modal .modal_title").html(data.name);
+        $(".buy_modal .description").html(data.description);
+        $(".buy_modal .point").html(`포인트 개당 ${data.point}포인트`);
+    
+        if(data.name === "호두과자"){
+          $(".buy_modal .walnut").show();
+           
+          Buy.drawWalnut({});
+        }
+      })
+      .fail((err) => {
+        if(err.responseText == "user") return alert("투어를 먼저 완료해주세요.");
+        else return alert("일반 회원만 이용가능합니다.")
+      })
   },
 
   drawWalnut(e){
