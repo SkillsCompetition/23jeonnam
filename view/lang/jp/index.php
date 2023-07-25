@@ -1,61 +1,3 @@
-<!DOCTYPE html>
-<html lang="zxx">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="resources/fonts/fontAwesome/css/all.css">
-  <link rel="stylesheet" href="resources/css/style.css">
-  <title>Cheonan Package Tour</title>
-</head>
-<body>
-
-  <!-- 로딩 -->
-  <div class="loading flex jcc aic">
-    <div>
-      <img src="resources/img/loading.gif" alt="#" title="#">
-    </div>
-  </div>
-
-  <!-- 헤더 섹션 -->
-  <header>
-    <div class="wrap flex jcsb aic">
-      <div class="logo_box">
-        <a href="index.html"><img src="resources/img/logo.png" alt="#" title="#" class="logo"></a>
-      </div>
-
-      <div class="menu_nav flex">
-        <a href="sub.html">명소 소개</a>
-        <a href="tour.html">명소 투어</a>
-        <a href="buy.html">명물 구매</a>
-        
-        <div class="animation flex jcsb">
-          <i class="fa fa-plane fa-rotate-180"></i>
-          <i class="fa fa-plane"></i>
-        </div>
-      </div>
-
-      <div class="utility flex jcfe aic">
-
-        <div class="lang_box flex aic">
-          <i class="fa fa-globe"></i>
-          <select class="lang flex">
-            <option value="kor">한국어</option>
-            <option value="eng">English</option>
-            <option value="cn">繁體中文</option>
-            <option value="jp">日本語</option>
-          </select>
-        </div>
-
-        <div class="login_box btn_box">
-          <div class="btn"><i class="fa fa-user"></i>로그인</div>
-          <div class="btn invert"><i class="fa fa-user-plus"></i>회원가입</div>
-        </div>
-
-      </div>
-    </div>
-  </header>
-
   <!-- 비주얼 섹션 -->
   <input type="checkbox" name="visual" id="visual" hidden>
   <div class="visual">
@@ -153,8 +95,8 @@
           <div class="item">
             <img src="resources/img/introduce/1.jpg" alt="#" title="#">
             <div class="text_box col-flex">
-              <h2>시민의 숨결로 태어난 천안의 8경 </h2>
-              <p>독립기념관, 유관순열사 사적지, 천안 삼거리 공원 등 여러가지 천안의 아름다운 명소를 투어해 보세요</p>
+              <h2>市民の息吹で生まれた天安の八景</h2>
+              <p>独立記念館、遺管順列史史跡、天安三街公園など様々な天安の美しい観光スポットをツアーしてみてください</p>
               <a href="sub.html">더보기</a>
             </div>
           </div>
@@ -188,9 +130,9 @@
             <div class="item col-flex jcsb">
               <div>
                 <small>서비스</small>
-                <h2>유저의 입맛대로 정하는 투어코스 서비스</h2>
-                <p>8경의 투어 코스 서비스는 유저가 직접 경로를 입맛대로 정하여 투어 계획을 짤 수 있는 서비스입니다.
-                  1경부터 8경까지 코스를 이어서 자기만의 코스 경로를 만들어보세요!</p>
+                <h2>市民の息吹で生まれた天安の八景</h2>
+                <p>8景のツアーコースサービスは、ユーザーが直接ルートを好みに合わせてツアー計画を組むことができるサービスです。
+                  1頃から8頃までコースを続けて自分だけのコースパスを作ってみてください！</p>
               </div>
               <a href="#">더보기</a>
             </div>
@@ -299,9 +241,9 @@
           </div>
           <div class="text_box col-flex jcc">
             <div>
-              <h2>투어를 완료하고 천안의 명물을 구매해보세요</h2>
-              <p>천안의 호두과자 외에도 천안에는 아주 맛있고 품질이 뛰어난 명물이 많이 있습니다. <br>
-                투어를 완료해 포인트를 모아 천안의 명물들을 구매해 가세요!!</p>
+              <h2>ツアーを完了し、天安の名物を購入する</h2>
+              <p>天安のクルミ菓子に加えて、天安には非常においしく、質の高い名物がたくさんあります。
+                ツアーを完了してポイントを集めて天安の名物を購入してください！</p>
             </div>
             <div>
               <h2>Complete the tour and buy Cheonan specialties</h2>
@@ -390,29 +332,3 @@
     </div>
 
   </div>
-
-  <!-- 푸터 영역 -->
-  <footer>
-    <div class="wrap flex jcsb">
-      <div class="left col-flex">
-        <a href="index.html"><img src="resources/img/logo.png" alt="#" title="#" class="logo"></a>
-        <p>주소 충청남도 천안시 서북구 번영로 156 <br>
-          Copyright ⓒ Cheonan Tours All Rights Reserved</p>
-      </div>
-
-      <div class="right col-flex jcsb aife">
-        <div class="sns_icon flex">
-          <a href="#"><i class="fab fa-square-facebook"></i></a>
-          <a href="#"><i class="fab fa-square-instagram"></i></a>
-          <a href="#"><i class="fab fa-square-twitter"></i></a>
-          <a href="#"><i class="fab fa-square-youtube"></i></a>
-          <a href="#"><i class="fab fa-square-tumblr"></i></a>
-        </div>
-
-        <i class="fa fa-bus"></i>
-      </div>
-    </div>
-  </footer>
-  
-</body>
-</html>
